@@ -1,0 +1,77 @@
+:root {
+  --background: #00b4d8;
+  --container: #272727;
+  --egg-inactive-background: #ede4df;
+  --egg-inactive-yello: #eab559;
+  --egg-inactive-orange: #ed7323;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.toggle-container {
+  background: var(--container);
+  border-radius: 8.125rem;
+  min-height: 12.5rem;
+  min-width: calc(12.5rem * 4);
+  padding: 2rem;
+}
+
+.toggle-egg {
+  height: 12.5rem;
+  width: 12.5rem;
+  border-radius: 50%;
+  background: var(--egg-inactive-background);
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+.toggle-egg::before {
+  content: '';
+  position: absolute;
+  height: 8rem;
+  width: 8rem;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--egg-inactive-yello), var(--egg-inactive-orange));
+}
+
+.toggle-egg::after {
+  content: '';
+  position: absolute;
+  height: 4.375rem;
+  width: 4.688rem;
+  border-radius: 100% 0 0 100%;
+  margin-top: 0.625rem;
+  margin-left: 0.625rem;
+  border: 1.25rem solid white;
+  border-color: transparent transparent transparent white;
+  transform: rotate(45deg);
+  transition: opacity 0.5s;
+}
+
+.toggle-egg[data-toggle="inactive"] {
+  transform: translateX(calc(8rem * 4.2)) rotateY(-180deg)
+}
+
+.toggle-egg[data-toggle="inactive"]::before {
+  opacity: 0.5;
+}
+
+.toggle-egg[data-toggle="inactive"]::after {
+  opacity: 0;
+}

@@ -1,0 +1,273 @@
+$red: #ee262e;
+$white: #f8f8f8;
+$black: #353536;
+$blue: #3046a7;
+$green: #017740;
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $blue;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  list-style: none;
+}
+
+.moon {
+  width: 12.5rem;
+  height: 12.5rem;
+  margin-left: auto;
+  position: relative;
+  background: $white;
+  border-radius: 0 0 0 100%;
+  box-shadow: 0 0 0.625rem 0.125rem rgba(248, 248, 248, 0.5);
+  animation: bright 10s infinite;
+
+  @keyframes bright {
+    0%, 100% {
+      box-shadow: 0 0 0.625rem 0.125rem rgba(248, 248, 248, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 0 rgba(248, 248, 248, 0.5);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background: rgba(172, 172, 172, 0.4);
+    top: 1.875rem;
+    left: 1.875rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background: rgba(172, 172, 172, 0.4);
+    top: -1.25rem;
+    left: 3.125rem;
+  }
+}
+
+.cloud {
+  width: 15.6rem;
+  height: 3.125rem;
+  background: rgba($white, 0.8);
+  border-radius: 2.5rem;
+  position: absolute;
+  animation: move 50s infinite;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background: rgba($white, 0.8);
+    height: 1.25rem;
+    width: 5rem;
+    top: -1.25rem;
+  }
+
+  &::before {
+    left: 3.125rem;
+    border-radius: 3.125rem 1.875rem 0 0;
+  }
+
+  &::after {
+    right: 2.5rem;
+    border-radius: 1.875rem 3.125rem 0 0;
+  }
+
+  @keyframes move {
+    0%, 100% {
+      transform: translateX(0);
+    }
+
+    50% {
+      transform: translateX(-10vw);
+    }
+  }
+
+  &:nth-child(1) {
+    top: 25%;
+    left: 15%;
+  }
+  
+  &:nth-child(2) {
+    top: 40%;
+    right: 5%;
+  }
+  
+  &:nth-child(3) {
+    top: 10%;
+    right: 25%;
+  }
+}
+
+.star {
+  background: $white;
+  border-radius: 50%;
+  position: absolute;
+  animation: star 0.2s 0s linear;
+  z-index: -1;
+
+  @keyframes star {
+    0%, 100% {
+      opacity: 1;
+    }
+    
+    30% {
+      opacity: 0;
+    }
+  }
+
+  @for $i from 1 through 200 {
+    &:nth-child(#{$i}) {
+      $size: unquote(random(5) + 'px');
+      width: $size;
+      height: $size;
+      top: unquote(random(100) + '%');
+      left: unquote(random(100) + '%');
+      animation-delay: unquote($i + 's');
+    }
+  }
+}
+
+.pokeball-container {
+  background: linear-gradient(
+    to bottom,
+    $red 0,
+    $red 47%,
+    $black 47%,
+    $black 55%,
+    $white 55%,
+    $white 100%
+  );
+  width: 23.125rem;
+  height: 23.125rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 0.25rem solid $black;
+  display: grid;
+  place-items: center;
+  animation: up 2s infinite;
+  transform: translateY(0.938rem);
+
+  &::before {
+    content: '';
+    height: 4.688rem;
+    width: 4.688rem;
+    background: $white;
+    border: 0.125rem solid $black;
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    height: 1.875rem;
+    width: 1.875rem;
+    background: $white;
+    border-radius: 50%;
+    position: absolute;
+    border: 0.125rem solid $black;
+    animation: blink 1s infinite;
+
+    @keyframes blink {
+      70% {
+        background: rgba($red, 0.7);
+      }
+    }
+  }
+
+  @keyframes up {
+    20%, 40%, 50% {
+      transform: translateY(0.938rem);
+    }
+
+    30% {
+      transform: translateY(1.25rem);
+    }
+
+    45% {
+      transform: rotate(-10deg);
+    }
+  }
+
+  .reflection {
+    width: 2.5rem; 
+    height: 2.5rem;  
+    border: solid 0.313rem white;
+    border-color: transparent transparent transparent rgba(lighten($red, 80%), 0.3);
+    border-radius: 50% 0 0 50%;
+    position: absolute;
+    transform: rotate(140deg);
+    right: 18%;
+    top: 15%;
+  }
+}
+
+.grasses {
+  position: relative;
+  background: $green;
+  max-height: 11.875rem;
+  height: 100%;
+  width: 100%;
+  margin-top: auto;
+  z-index: -1;
+
+  &::before {
+    content: '';
+    height: 5rem;
+    width: 12.5rem;
+    background: rgba($black, 0.8);
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: shadow 2s infinite;
+
+    @keyframes shadow {
+      20%, 40%, 50% {
+        height: 5rem;
+        width: 12.5rem;
+      }
+
+      30% {
+        height: 3.75rem;
+        width: 13.125rem;
+      }
+    }
+  }
+
+  .grass {
+    position: absolute;
+    background: darken($green, 10%);
+    border-radius: 0.625rem 0;
+
+    @for $i from 1 through 200 {
+      &:nth-child(#{$i}) {
+        $size: unquote(random(10) + 'px');
+        width: $size;
+        height: $size;
+        top: unquote(random(100) + '%');
+        left: unquote(random(100) + '%');
+        animation-delay: unquote(random(100) + 's');
+        transform: rotate(unquote(random(360) + 'deg'));
+      }
+    }
+  }
+}
